@@ -13,4 +13,7 @@
 - SDWebImageSwiftUI: https://github.com/SDWebImage/SDWebImageSwiftUI
 - Lottie: 
 
+## Api utilizada
+[superhero-api](https://akabab.github.io/superhero-api/api/)
+
 ## Agradecimientos

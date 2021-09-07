@@ -5,24 +5,35 @@ struct HeroesListView: View {
     @ObservedObject var viewModel = HeroesViewModel()
     
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(viewModel.heroes, id: \.id) { hero in
-                    
-                    NavigationLink(destination: HeroDetailView(HeroDetailViewModel(hero.id)),
-                                   label: {
-                                    HeroListRowView(heroName: hero.name,
-                                                    heroImage: hero.images.lg)
-                                   })
-                    
-                    
+            
+        ZStack(alignment: .center) {
+            
+            if viewModel.showLoading {
+                
+                LoaderView()
+                
+            } else {
+                NavigationView {
+                    List {
+                        ForEach(viewModel.heroes, id: \.id) { hero in
+                            
+                            NavigationLink(destination: HeroDetailView(HeroDetailViewModel(hero.id)),
+                                           label: {
+                                            HeroListRowView(heroName: hero.name,
+                                                            heroImage: hero.images.lg)
+                                           })
+                            
+                            
+                        }
+                    }
+                    .navigationTitle("Characters")
                 }
             }
-            .navigationTitle("Characters")
-            .onAppear {
-                viewModel.getAllHeroes()
-            }
         }
+        .onAppear {
+            viewModel.getAllHeroes()
+        }
+        
     }
 }
 

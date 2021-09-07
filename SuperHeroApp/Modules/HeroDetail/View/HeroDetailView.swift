@@ -6,56 +6,62 @@ struct HeroDetailView: View {
     
     init(_ viewModel: HeroDetailViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
-        
-        viewModel.getHeroDetail()
     }
     
     var body: some View {
         
-        if let hero = viewModel.hero {
-            List {
-                Section(header: Text("Mugshot")) {
-                    HStack {
-                        Spacer()
-                        if let image = hero.images.url,
-                           let url = URL(string: image) {
-                            WebImage(url: url)
-                                .resizable()
-                                .placeholder {
-                                    RoundedRectangle(cornerRadius: 25)
-                                        .frame(width: 150, height: 150)
-                                        .foregroundColor(.gray)
-                                }
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 150, height: 150)
-                                .cornerRadius(25)
-                        } else {
-                            RoundedRectangle(cornerRadius: 25)
-                                .frame(width: 150, height: 150)
-                                .foregroundColor(.gray)
+        ZStack(alignment: .center) {
+         
+            if viewModel.showLoading {
+                
+               LoaderView()
+                
+            } else if let hero = viewModel.hero {
+                
+                List {
+                    Section(header: Text("Mugshot")) {
+                        HStack {
+                            Spacer()
+                            if let image = hero.images.url,
+                               let url = URL(string: image) {
+                                WebImage(url: url)
+                                    .resizable()
+                                    .placeholder {
+                                        RoundedRectangle(cornerRadius: 25)
+                                            .frame(width: 150, height: 150)
+                                            .foregroundColor(.gray)
+                                    }
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 150, height: 150)
+                                    .cornerRadius(25)
+                            } else {
+                                RoundedRectangle(cornerRadius: 25)
+                                    .frame(width: 150, height: 150)
+                                    .foregroundColor(.gray)
+                            }
+                            Spacer()
                         }
-                        Spacer()
                     }
+                    
+                    Section(header: Text("Work info")) {
+                        Text("Occupation: ")
+                            .font(.footnote)
+                            .foregroundColor(.gray)
+                            .multilineTextAlignment(.center)
+                    }
+                    
+                    infoSection(hero: hero)
+                    powerStatsSection(hero: hero)
+                    locationSection(hero: hero)
+                    
                 }
-                
-                Section(header: Text("Work info")) {
-                    Text("Occupation: ")
-                        .font(.footnote)
-                        .foregroundColor(.gray)
-                        .multilineTextAlignment(.center)
-                }
-                
-                infoSection(hero: hero)
-                powerStatsSection(hero: hero)
-                locationSection(hero: hero)
+                .listStyle(GroupedListStyle())
+                .navigationTitle(hero.name)
                 
             }
-            .listStyle(GroupedListStyle())
-            .navigationTitle(hero.name)
-            
-        } else {
-            EmptyView()
-            
+        }
+        .onAppear {
+            viewModel.getHeroDetail()
         }
     }
 }

@@ -3,6 +3,7 @@ import SwiftUI
 
 final class HeroDetailViewModel: ObservableObject {
     @Published var hero: Hero?
+    @Published var showLoading: Bool = true
     
     private var client = NetworkingProvider.shared
     var id: Int
@@ -21,6 +22,8 @@ final class HeroDetailViewModel: ObservableObject {
         let url = Constants.baseUrl + urlFormatted
         
         client.fetchData(url: url) { ( result: Hero?, error) in
+            self.showLoading = false
+            
             if let error = error {
                 print(error)
             } else if let result = result {
