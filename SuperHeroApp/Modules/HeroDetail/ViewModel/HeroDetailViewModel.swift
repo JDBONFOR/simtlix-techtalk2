@@ -6,11 +6,7 @@ final class HeroDetailViewModel: ObservableObject {
     @Published var showLoading: Bool = true
     
     private var client = NetworkingProvider.shared
-    var id: Int
-    
-    init(_ id: Int) {
-        self.id = id
-    }
+    var id: Int = 0
     
     func getHeroDetail() {
         

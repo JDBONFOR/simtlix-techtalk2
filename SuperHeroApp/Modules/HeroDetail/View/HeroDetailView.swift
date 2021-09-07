@@ -2,10 +2,10 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct HeroDetailView: View {
-    @StateObject var viewModel: HeroDetailViewModel
+    @ObservedObject var viewModel: HeroDetailViewModel = HeroDetailViewModel()
     
-    init(_ viewModel: HeroDetailViewModel) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
+    init(_ id: Int) {
+        viewModel.id = id
     }
     
     var body: some View {

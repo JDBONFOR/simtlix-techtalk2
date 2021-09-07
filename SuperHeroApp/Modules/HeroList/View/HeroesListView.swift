@@ -9,21 +9,17 @@ struct HeroesListView: View {
         ZStack(alignment: .center) {
             
             if viewModel.showLoading {
-                
                 LoaderView()
-                
             } else {
                 NavigationView {
                     List {
                         ForEach(viewModel.heroes, id: \.id) { hero in
                             
-                            NavigationLink(destination: HeroDetailView(HeroDetailViewModel(hero.id)),
+                            NavigationLink(destination: HeroDetailView(hero.id),
                                            label: {
                                             HeroListRowView(heroName: hero.name,
                                                             heroImage: hero.images.lg)
                                            })
-                            
-                            
                         }
                     }
                     .navigationTitle("Characters")
