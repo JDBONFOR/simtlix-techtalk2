@@ -1,160 +1,69 @@
-
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct ContentView: View {
-    
-    @ObservedObject var heroesViewModel = HeroesViewModel()
-    
-    var body: some View {
-        NavigationView {
-            List {
-                ForEach(heroesViewModel.heroes, id: \.id) { hero in
-                    NavigationLink(
-                        destination: HeroDetailView(hero: hero),
-                        label: {
-                            HeroListRowView(hero: hero)
-                        })
-                }
-            }
-            .navigationTitle("Characters")
-            .onAppear {
-                heroesViewModel.getAllHeroes()
-            }
-        }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
-
-final class HeroesViewModel: ObservableObject {
-    
-    @Published var heroes: [Hero] = []
-    @Published var hero: Hero? = nil
-    
-    private var client = NetworkingProvider.shared
-    
-    func getAllHeroes() {
-        if let data = client.loadHeroesJson() {
-            self.heroes = data.heroes
-        }
-    }
-    
-    func getCharacter() {
-        client.fetchData(url: Constants.baseUrl + "71", callback: { (response: Hero?, error: Error?) in
-            if let hero = response {
-                self.hero = hero
-            }
-        })
-    }
-}
-
-struct HeroListRowView: View {
-    let hero: Hero
-    
-    var body: some View {
-        HStack {
-            if let image = hero.images.url,
-               let url = URL(string: image) {
-                WebImage(url: url)
-                    .resizable()
-                    .placeholder {
-                        RoundedRectangle(cornerRadius: 50)
-                            .frame(width: 100, height: 100)
-                            .foregroundColor(.gray)
-                    }
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 100, height: 100)
-                    .cornerRadius(50)
-            } else {
-                RoundedRectangle(cornerRadius: 50)
-                    .frame(width: 100, height: 100)
-                    .foregroundColor(.gray)
-            }
-            VStack(alignment: .leading) {
-                Text(hero.name)
-                    .font(.title3)
-                    .foregroundColor(.accentColor)
-                Text("\(hero.appearance.race ?? "-")")
-                    .font(.footnote)
-                    .foregroundColor(.gray)
-                    .redacted(reason: hero.appearance.race == "null" ? .placeholder : [])
-            }
-        }
-    }
-}
-
-///
-
 struct HeroDetailView: View {
+    @StateObject var viewModel: HeroDetailViewModel
+    
+    init(_ viewModel: HeroDetailViewModel) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+        
+        viewModel.getHeroDetail()
+    }
+    
+    var body: some View {
+        
+        if let hero = viewModel.hero {
+            List {
+                Section(header: Text("Mugshot")) {
+                    HStack {
+                        Spacer()
+                        if let image = hero.images.url,
+                           let url = URL(string: image) {
+                            WebImage(url: url)
+                                .resizable()
+                                .placeholder {
+                                    RoundedRectangle(cornerRadius: 25)
+                                        .frame(width: 150, height: 150)
+                                        .foregroundColor(.gray)
+                                }
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 150, height: 150)
+                                .cornerRadius(25)
+                        } else {
+                            RoundedRectangle(cornerRadius: 25)
+                                .frame(width: 150, height: 150)
+                                .foregroundColor(.gray)
+                        }
+                        Spacer()
+                    }
+                }
+                
+                Section(header: Text("Work info")) {
+                    Text("Occupation: ")
+                        .font(.footnote)
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.center)
+                }
+                
+                infoSection(hero: hero)
+                powerStatsSection(hero: hero)
+                locationSection(hero: hero)
+                
+            }
+            .listStyle(GroupedListStyle())
+            .navigationTitle(hero.name)
+            
+        } else {
+            EmptyView()
+            
+        }
+    }
+}
+    
+struct infoSection: View {
     let hero: Hero
     
     var body: some View {
-        List {
-            Section(header: Text("Mugshot")) {
-                HStack {
-                    Spacer()
-                    if let image = hero.images.url,
-                       let url = URL(string: image) {
-                        WebImage(url: url)
-                            .resizable()
-                            .placeholder {
-                                RoundedRectangle(cornerRadius: 25)
-                                    .frame(width: 150, height: 150)
-                                    .foregroundColor(.gray)
-                            }
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 150, height: 150)
-                            .cornerRadius(25)
-                    } else {
-                        RoundedRectangle(cornerRadius: 25)
-                            .frame(width: 150, height: 150)
-                            .foregroundColor(.gray)
-                    }
-                    Spacer()
-                }
-            }
-            
-            Section(header: Text("Work info")) {
-                Text("Occupation: \(hero.work.occupation)")
-                    .font(.footnote)
-                    .foregroundColor(.gray)
-                    .multilineTextAlignment(.center)
-            }
-            
-            infoSection
-            powerStatsSection
-            locationSection
-
-//            if let episodes = hero?.episode?.compactMap{ $0 } {
-//                Section(header: Text("Episodes")) {
-//                    ForEach(episodes, id: \.id) { episode in
-//                        NavigationLink(
-////                            destination: EpisodeDetailView(id: episode.id!),
-//                            destination: EmptyView(),
-//                            label: {
-//                                HStack {
-//                                    Text(episode.name!)
-//                                    Spacer()
-//                                    Text(episode.airDate!)
-//                                        .foregroundColor(.gray)
-//                                        .font(.footnote)
-//                                }
-//                            })
-//                    }
-//                }
-//            }
-            
-        }
-        .listStyle(GroupedListStyle())
-        .navigationTitle(hero.name)
-    }
-    
-    private var infoSection: some View {
         Section(header: Text("Info"),
                 content: {
                     InfoRowView(label: "Species",
@@ -171,8 +80,13 @@ struct HeroDetailView: View {
                                 value: hero.appearance.hairColor)
                 })
     }
+}
+
+struct powerStatsSection: View {
+    let hero: Hero
     
-    private var powerStatsSection: some View {
+    var body: some View {
+        
         Section(header: Text("Powerstats"),
                 content: {
                     ProgressInfoRowView(label: "Strength",
@@ -207,8 +121,13 @@ struct HeroDetailView: View {
                                         color: .purple)
                 })
     }
+}
+
+struct locationSection: View {
+    let hero: Hero
     
-    private var locationSection: some View {
+    var body: some View {
+        
         Section(header: Text("Location")) {
             NavigationLink(
                 destination:
