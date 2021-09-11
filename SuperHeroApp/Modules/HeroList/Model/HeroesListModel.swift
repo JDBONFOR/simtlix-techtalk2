@@ -1,15 +1,15 @@
 import Foundation
 
-struct HeroeListModel: Codable {
+struct HeroListModel: Codable {
     let id: Int
     let name: String
-    let images: HeroeListImage
+    let images: HeroListImage
     
     enum CodingKeys: String, CodingKey {
         case id, name, images
     }
 }
 
-struct HeroeListImage: Codable {
-    let lg: String
+struct HeroListImage: Codable {
+    let sm: String
 }

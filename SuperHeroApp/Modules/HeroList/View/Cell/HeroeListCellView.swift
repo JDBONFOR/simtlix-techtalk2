@@ -2,30 +2,25 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct HeroListRowView: View {
-    let heroName: String
-    let heroImage: String
+    let hero: HeroListModel
     
     var body: some View {
         HStack {
-            if let image = heroImage,
+            if let image = hero.images.sm,
                let url = URL(string: image) {
                 WebImage(url: url)
                     .resizable()
                     .placeholder {
-                        RoundedRectangle(cornerRadius: 50)
-                            .frame(width: 100, height: 100)
-                            .foregroundColor(.gray)
+                        ImagePlaceholderView()
                     }
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 100, height: 100)
                     .cornerRadius(50)
             } else {
-                RoundedRectangle(cornerRadius: 50)
-                    .frame(width: 100, height: 100)
-                    .foregroundColor(.gray)
+                ImagePlaceholderView()
             }
             VStack(alignment: .leading) {
-                Text(heroName)
+                Text(hero.name)
                     .font(.title3)
                     .foregroundColor(.accentColor)
             }
@@ -36,7 +31,15 @@ struct HeroListRowView: View {
 
 struct HeroListRowView_Previews: PreviewProvider {
     static var previews: some View {
-        HeroListRowView(heroName: "Prueba SimTLiX",
-                        heroImage: "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/lg/730-zatanna.jpg")
+        HeroListRowView(hero: HeroListModel(id: 1, name: "Prueba SimTLiX", images: HeroListImage(sm: "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/lg/730-zatanna.jpg")))
+    }
+}
+
+struct ImagePlaceholderView: View {
+    
+    var body: some View {
+        RoundedRectangle(cornerRadius: 50)
+            .frame(width: 100, height: 100)
+            .foregroundColor(.gray)
     }
 }

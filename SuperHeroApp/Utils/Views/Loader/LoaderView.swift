@@ -3,7 +3,7 @@ import Lottie
 
 struct LoaderView: View {
     var body: some View {
-        LottieView("loader")
+        LottieView("superhero")
     }
 }
 

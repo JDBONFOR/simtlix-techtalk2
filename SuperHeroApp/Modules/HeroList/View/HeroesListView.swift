@@ -5,18 +5,26 @@ struct HeroesListView: View {
     @ObservedObject var viewModel = HeroesViewModel()
     
     var body: some View {
-        NavigationView {
-            List {
-                HeroListRowView(heroName: "Personaje 1",
-                                heroImage: "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/lg/730-zatanna.jpg")
-                HeroListRowView(heroName: "Personaje 2",
-                                heroImage: "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/lg/730-zatanna.jpg")
-                HeroListRowView(heroName: "Personaje 3",
-                                heroImage: "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/lg/730-zatanna.jpg")
-                HeroListRowView(heroName: "Personaje 4",
-                                heroImage: "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/lg/730-zatanna.jpg")
+        ZStack(alignment: .center) {
+            if viewModel.showLoading {
+                LoaderView()
+            } else {
+                NavigationView {
+                    List {
+                        ForEach(viewModel.heroes, id: \.id) { hero in
+                            NavigationLink(
+                                destination: HeroDetailView(hero.id),
+                                label: {
+                                    HeroListRowView(hero: hero)
+                                })
+                        }
+                    }
+                    .navigationTitle("Characters")
+                }
             }
-            .navigationTitle("Characters")
+        }
+        .onAppear {
+            viewModel.getAllHeroes()
         }
     }
 }

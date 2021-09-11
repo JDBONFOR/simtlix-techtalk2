@@ -1,6 +1,20 @@
 import Foundation
 
 class Utils: NSObject {
+    
+    enum ResourceType {
+        case allHeroes
+        case hero(id: Int)
+        
+        var endpoint: String {
+            switch self {
+            case .allHeroes:
+                return Constants.EndpointKeys.heroes
+            case .hero(_):
+                return Constants.EndpointKeys.hero
+            }
+        }
+    }
         
     // Endpoint.plist
     public static func getEndpoints() -> [String: Any]? {
@@ -14,6 +28,21 @@ class Utils: NSObject {
             return nil
         }
         return result
+    }
+    
+    public static func getResource(resourceType: ResourceType) -> String? {
+        guard let endpoints = Utils.getEndpoints(),
+              let endpointsData = endpoints[resourceType.endpoint] as? [String: Any],
+              let urlString = endpointsData[Constants.EndpointKeys.url] as? String else { return nil }
+        
+        var urlFormatted = ""
+        switch resourceType {
+        case .allHeroes:
+            urlFormatted = String(format: urlString, arguments: ["all.json"])
+        case .hero(let id):
+            urlFormatted = String(format: urlString, arguments: [String(id)])
+        }
+        return Constants.baseUrl + urlFormatted
     }
     
     // Date formatter
