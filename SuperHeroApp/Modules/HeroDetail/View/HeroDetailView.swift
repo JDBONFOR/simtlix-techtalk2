@@ -50,9 +50,9 @@ struct HeroDetailView: View {
                             .multilineTextAlignment(.center)
                     }
                     
-                    infoSection(hero: hero)
-                    powerStatsSection(hero: hero)
-                    locationSection(hero: hero)
+                    InfoSection(hero: hero)
+                    PowerStatsSection(hero: hero)
+                    LocationSection(hero: hero)
                     
                 }
                 .listStyle(GroupedListStyle())
@@ -66,7 +66,7 @@ struct HeroDetailView: View {
     }
 }
     
-struct infoSection: View {
+struct InfoSection: View {
     let hero: Hero
     
     var body: some View {
@@ -88,7 +88,7 @@ struct infoSection: View {
     }
 }
 
-struct powerStatsSection: View {
+struct PowerStatsSection: View {
     let hero: Hero
     
     var body: some View {
@@ -129,7 +129,7 @@ struct powerStatsSection: View {
     }
 }
 
-struct locationSection: View {
+struct LocationSection: View {
     let hero: Hero
     
     var body: some View {

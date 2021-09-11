@@ -13,7 +13,7 @@ final class HeroesViewModel: ObservableObject {
             return
         }
                 
-        client.fetchData(url: url) { ( result: [HeroListModel]?, error) in
+        client.fetchData(url: url) { (result: [HeroListModel]?, error) in
             self.showLoading = false
             if let error = error {
                 print(error)

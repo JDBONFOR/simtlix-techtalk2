@@ -48,27 +48,27 @@ struct Powerstats: Codable {
     let power, combat: Int
     
     var strengthPercent: Float {
-        return (Float(strength) ) / 100
+        return Float(strength) / 100
     }
     
     var speedPercent: Float {
-        return (Float(speed) ) / 100
+        return Float(speed) / 100
     }
     
     var intelligencePercent: Float {
-        return (Float(intelligence) ) / 100
+        return Float(intelligence) / 100
     }
     
     var powerPercent: Float {
-        return (Float(power) ) / 100
+        return Float(power) / 100
     }
     
     var combatPercent: Float {
-        return (Float(combat) ) / 100
+        return Float(combat) / 100
     }
     
     var durabilityPercent: Float {
-        return (Float(durability) ) / 100
+        return Float(durability) / 100
     }
 }
 
