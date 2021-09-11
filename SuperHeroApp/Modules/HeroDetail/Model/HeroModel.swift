@@ -9,7 +9,7 @@ struct Hero: Codable {
     let appearance: Appearance
     let work: Work
     let connections: Connections
-    let images: Image
+    let images: HeroImage
 }
 
 // MARK: - Appearance
@@ -34,7 +34,7 @@ struct Connections: Codable {
 }
 
 // MARK: - Image
-struct Image: Codable {
+struct HeroImage: Codable {
     let url: String
     
     enum CodingKeys: String, CodingKey {

@@ -3,6 +3,7 @@ import SwiftUI
 struct HeroesListView: View {
     
     @ObservedObject var viewModel = HeroesViewModel()
+    @State var darkMode: Bool = false
     
     var body: some View {
         ZStack(alignment: .center) {
@@ -19,10 +20,19 @@ struct HeroesListView: View {
                                 })
                         }
                     }
-                    .navigationTitle("Characters")
+                    .navigationBarTitle("Characters", displayMode: .automatic)
+                    .navigationBarItems(trailing:
+                        Button(action: {
+                            darkMode.toggle()
+                        }) {
+                            Image(systemName: "switch.2")
+                        }
+                    )
                 }
+                .navigationViewStyle(StackNavigationViewStyle())
             }
         }
+        .preferredColorScheme(darkMode ? .dark : .light)
         .onAppear {
             viewModel.getAllHeroes()
         }

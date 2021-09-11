@@ -44,7 +44,7 @@ struct HeroDetailView: View {
                     }
                     
                     Section(header: Text("Work info")) {
-                        Text("Occupation: ")
+                        Text("Occupation: \(hero.work.occupation)")
                             .font(.footnote)
                             .foregroundColor(.gray)
                             .multilineTextAlignment(.center)
