@@ -1,7 +1,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct HeroListRowView: View {
+struct HeroListCellView: View {
     let hero: HeroListModel
     
     var body: some View {
@@ -31,7 +31,7 @@ struct HeroListRowView: View {
 
 struct HeroListRowView_Previews: PreviewProvider {
     static var previews: some View {
-        HeroListRowView(hero: HeroListModel(id: 1, name: "Prueba SimTLiX", images: HeroListImage(sm: "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/lg/730-zatanna.jpg")))
+        HeroListCellView(hero: HeroListModel(id: 1, name: "Prueba SimTLiX", images: HeroListImage(sm: "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/lg/730-zatanna.jpg")))
     }
 }
 

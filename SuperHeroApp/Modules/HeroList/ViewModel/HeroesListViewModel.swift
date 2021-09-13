@@ -18,7 +18,6 @@ final class HeroesViewModel: ObservableObject {
             if let error = error {
                 print(error)
             } else if let result = result {
-                print(result)
                 self.heroes = result
             }
         }        

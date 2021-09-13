@@ -16,7 +16,7 @@ struct HeroesListView: View {
                             NavigationLink(
                                 destination: HeroDetailView(hero.id),
                                 label: {
-                                    HeroListRowView(hero: hero)
+                                    HeroListCellView(hero: hero)
                                 })
                         }
                     }
