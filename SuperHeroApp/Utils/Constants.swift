@@ -10,6 +10,6 @@ public class Constants {
         static let url = "url"
 
         static let heroes = "heroes"
-        static let heroe = "heroe"
+        static let hero = "hero"
     }
 }
