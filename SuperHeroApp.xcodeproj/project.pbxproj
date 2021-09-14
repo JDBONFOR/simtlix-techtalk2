@@ -24,7 +24,6 @@
 		0ECBC79C26E7DB8700140FF4 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECBC79B26E7DB8700140FF4 /* LoaderView.swift */; };
 		0ECBC79F26E7DBD400140FF4 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECBC79E26E7DBD400140FF4 /* LottieView.swift */; };
 		0ECBC7A226E7F48C00140FF4 /* prueba.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECBC7A126E7F48B00140FF4 /* prueba.swift */; };
-		9A06580826ECF97600459852 /* superhero.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A06580726ECF97600459852 /* superhero.json */; };
 		9A4E722E26DA7CB8003583A3 /* SuperHeroAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4E722D26DA7CB8003583A3 /* SuperHeroAppApp.swift */; };
 		9A4E723026DA7CB8003583A3 /* HeroDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4E722F26DA7CB8003583A3 /* HeroDetailView.swift */; };
 		9A4E723226DA7CBB003583A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A4E723126DA7CBB003583A3 /* Assets.xcassets */; };
@@ -35,6 +34,7 @@
 		9A4E726326DA864D003583A3 /* NetworkingProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4E726226DA864D003583A3 /* NetworkingProvider.swift */; };
 		9A4E727726DA9123003583A3 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9A4E727626DA9123003583A3 /* SDWebImageSwiftUI */; };
 		9A4E727C26DA9E5D003583A3 /* heroes.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A4E727B26DA9E5D003583A3 /* heroes.json */; };
+		9AF6EF6326F0E50A0013238A /* superhero.json in Resources */ = {isa = PBXBuildFile; fileRef = 9AF6EF6226F0E50A0013238A /* superhero.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,7 +71,6 @@
 		0ECBC79B26E7DB8700140FF4 /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		0ECBC79E26E7DBD400140FF4 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		0ECBC7A126E7F48B00140FF4 /* prueba.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = prueba.swift; sourceTree = "<group>"; };
-		9A06580726ECF97600459852 /* superhero.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = superhero.json; path = ../../../../../../Downloads/superhero.json; sourceTree = "<group>"; };
 		9A4E722A26DA7CB8003583A3 /* SuperHeroApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperHeroApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A4E722D26DA7CB8003583A3 /* SuperHeroAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperHeroAppApp.swift; sourceTree = "<group>"; };
 		9A4E722F26DA7CB8003583A3 /* HeroDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailView.swift; sourceTree = "<group>"; };
@@ -86,6 +85,7 @@
 		9A4E724C26DA7CBB003583A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A4E726226DA864D003583A3 /* NetworkingProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingProvider.swift; sourceTree = "<group>"; };
 		9A4E727B26DA9E5D003583A3 /* heroes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = heroes.json; sourceTree = "<group>"; };
+		9AF6EF6226F0E50A0013238A /* superhero.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = superhero.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,7 +204,7 @@
 				0ECBC77626E79B1700140FF4 /* Endpoints.plist */,
 				9A4E723126DA7CBB003583A3 /* Assets.xcassets */,
 				0ECBC79226E7D80300140FF4 /* loader.json */,
-				9A06580726ECF97600459852 /* superhero.json */,
+				9AF6EF6226F0E50A0013238A /* superhero.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -455,7 +455,7 @@
 				0ECBC78F26E7A6EE00140FF4 /* Endpoints.plist in Resources */,
 				9A4E727C26DA9E5D003583A3 /* heroes.json in Resources */,
 				9A4E723226DA7CBB003583A3 /* Assets.xcassets in Resources */,
-				9A06580826ECF97600459852 /* superhero.json in Resources */,
+				9AF6EF6326F0E50A0013238A /* superhero.json in Resources */,
 				0ECBC79326E7D80300140FF4 /* loader.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
